@@ -332,7 +332,7 @@ class user{
 			level: this.level
 		});
 		
-		if(logindata.room == "default") webhooksay("SERVER", "https://bonziworld.org/profiles/server.png", this.public.name+" HAS JOINED BONZIWORLD!");
+		if(logindata.room == "default") webhooksay("SERVER", "https://bonziworld-cc.onrender.com/profiles/server.png", this.public.name+" has joined.");
 		commands.lip = this.socket.ip;
         this.room.loginCount++;
 		//Talk handler
@@ -400,7 +400,7 @@ class user{
 						else mmm2.push(m);
 					})
 				let mmm3 = mmm2.join(" ");
-				let avatar =  this.public.color.startsWith("http") ? "https://bonziworld.org/profiles/crosscolor.png" : ("https://bonziworld.org/profiles/"+this.public.color+".png");
+				let avatar =  this.public.color.startsWith("http") ? "https://bonziworld-cc.onrender.com/profiles/crosscolor.png" : ("https://bonziworld-cc.onrender.com/profiles/"+this.public.color+".png");
 				webhooksay(this.public.name, avatar, mmm3);
 			}
 			//Room say
@@ -444,7 +444,7 @@ class user{
 
 		//Leave handler
 		this.socket.on("disconnect", ()=>{
-			if(this.room.name == "default") webhooksay("SERVER", "https://bonziworld.org/profiles/server.png", this.public.name+" HAS LEFT!");
+			if(this.room.name == "default") webhooksay("SERVER", "https://bonziworld-cc.onrender.com/profiles/server.png", this.public.name+" has left.");
 			this.room.emit("leave", this.public.guid);
 			delete this.room.usersPublic[this.public.guid];
 			delete this.room.users[this.public.guid];
