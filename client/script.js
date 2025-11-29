@@ -19,7 +19,7 @@ function movestart(mouse, self){
 class msWindow{
     constructor(title, html, x, y, width, height, buttons){
         this.x = x;
-        this.y = y;R
+        this.y = y;
         this.toppad = 0;
         this.w = !width ? "auto" : width;
         this.h = !height ? "auto": height;
