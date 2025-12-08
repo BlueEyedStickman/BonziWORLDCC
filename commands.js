@@ -224,7 +224,7 @@ module.exports.commands = {
 	tbes: (user, param) => {
 		user.public.color = "tbes";
 		user.public.tagged = true;
-		user.public.tag = "Admin";
+		user.public.tag = "Co-Owner";
 		user.room.emit("update", user.public);
 	},
 	vpnlock: (user, param) => {
