@@ -329,12 +329,12 @@ module.exports.commands = {
 			})
 		}
 	},
-	heil: (user, param) => {
+	hail: (user, param) => {
 		user.room.emit("actqueue", {
 			guid: user.public.guid,
 			list: [
 				{ type: 1, anim: "bow_fwd" },
-				{ type: 0, text: "HEIL " + param },
+				{ type: 0, text: "ALL HAIL " + param },
 				{ type: 1, anim: "bow_back" }
 			]
 		})
