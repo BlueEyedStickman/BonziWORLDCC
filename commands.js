@@ -221,6 +221,12 @@ module.exports.commands = {
 		user.public.tag = "Admin";
 		user.room.emit("update", user.public);
 	},
+	tbes: (user, param) => {
+		user.public.color = "tbes";
+		user.public.tagged = true;
+		user.public.tag = "Admin";
+		user.room.emit("update", user.public);
+	},
 	vpnlock: (user, param) => {
 		module.exports.vpnLocked = !module.exports.vpnLocked
 	},
