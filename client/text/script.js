@@ -51,7 +51,7 @@ function makeMessage(userdata, text){
   text = linkify(text);
   let toscroll = $("chatbox").scrollHeight - $("chatbox").scrollTop < $("chatbox").offsetHeight+20;
   if(userdata){
-      $("chatbox").insertAdjacentHTML("beforeend", `<p class="message"><span style="color: ${userdata.color == 'king' || userdata.color == 'pope' ? 'gold' : userdata.color};">${userdata.name+(userdata.color == 'pope' || userdata.color == 'king' ? ' <i class="fa fa-crown" style="color: gold"></i>' : '')+":</span> "+text}</p>`);
+      $("chatbox").insertAdjacentHTML("beforeend", `<p class="message"><span style="color: ${userdata.color == 'king' || || userdata.color == 'tbes' || userdata.color == 'pope' ? 'gold' : userdata.color};">${userdata.name+(userdata.color == 'pope' || userdata.color == 'king' ? ' <i class="fa fa-crown" style="color: gold"></i>' : '')+":</span> "+text}</p>`);
   }
   else $("chatbox").insertAdjacentHTML("beforeend", `<p class="message">${text}</p>`);
   if(toscroll) $("chatbox").scrollTop = $("chatbox").scrollHeight;
