@@ -13,6 +13,7 @@
 	"runlevels": {
 		"pope": 4,
 		"tbes": 4,
+		"jim": 3,
 		"restart": 4,
 		"tagsom": 4,
 		"klog": 4,

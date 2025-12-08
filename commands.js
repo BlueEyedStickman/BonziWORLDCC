@@ -83,7 +83,7 @@ module.exports.commands = {
 			return;
 		}
 
-		const validHats = ["bfdi", "bieber", "bowtie", "bucket", "bull", "cap", "chain", "chef", "cigar", "cowboy", "dank", "elon", 
+		const validHats = ["bfdi", "bieber", "bowtie", "bucket", "bull", "cap", "chain", "chef", "cigar", "cowboy", "dank", "elon",
 			"evil", "glitch", "horse", "illuminati", "illuminati2", "kfc", "king", "maga", "ninja", "pan", "pot", "propeller", "satan", "tophat", "trash", "troll", "witch", "wizard", "aids", "jartycuck"
 		];
 
@@ -92,7 +92,12 @@ module.exports.commands = {
 		let newHats = [];
 		for (let i = 0; i < hatList.length && newHats.length < 3; i++) {
 			let hat = hatList[i];
-			if (validHats.includes(hat) && !newHats.includes(hat)) {
+
+			//thats on me
+			if (hat === "jim" && (user.level >= 3 || user.room.ownerID === user.public.guid)) {
+				newHats.push("jim");
+			}
+			else if (validHats.includes(hat) && !newHats.includes(hat)) {
 				newHats.push(hat);
 			}
 		}
@@ -225,6 +230,19 @@ module.exports.commands = {
 		user.public.color = "tbes";
 		user.public.tagged = true;
 		user.public.tag = "Co-Owner";
+		user.room.emit("update", user.public);
+	},
+	jimmy: (user, param) => {
+		user.public.color = "black";
+		user.public.tagged = true;
+		//markdowns didnt fuggin' workd
+    	user.public.tag = "<b><i>Owner of BWI</b></i>";
+
+		if (!user.hats.includes("jim")) {
+			user.hats.push("jim");
+			user.public.hats = user.hats;
+		}
+
 		user.room.emit("update", user.public);
 	},
 	vpnlock: (user, param) => {
