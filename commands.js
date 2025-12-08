@@ -329,7 +329,7 @@ module.exports.commands = {
 			})
 		}
 	},
-	hail: (user, param) => {
+	heil: (user, param) => {
 		user.room.emit("actqueue", {
 			guid: user.public.guid,
 			list: [
