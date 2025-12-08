@@ -453,7 +453,7 @@ async function clipboard(text) {
             this.parent.style.marginTop = this.y;
             this.sprite.x = this.x;
             this.sprite.y = this.y + this.toppad;
-            
+
             let hatsContainer = $(this.id + "hats");
             if (hatsContainer) {
                 hatsContainer.style.marginLeft = this.x + 'px';
@@ -463,15 +463,15 @@ async function clipboard(text) {
         updateHats() {
             let hatsContainer = $(this.id + "hats");
             if (!hatsContainer) return;
-            
+
             hatsContainer.innerHTML = '';
-            
+
             this.hats.forEach(hat => {
-                hatsContainer.insertAdjacentHTML('beforeend', 
+                hatsContainer.insertAdjacentHTML('beforeend',
                     `<img src="./img/hats/${hat}.webp" style="width:200px;height:160px;position:absolute;top:0;left:0;" alt="${hat} hat">`
                 );
             });
-            
+
             hatsContainer.style.marginLeft = this.x + 'px';
             hatsContainer.style.marginTop = this.y + 'px';
         }
@@ -782,6 +782,122 @@ async function clipboard(text) {
                                 name: "Tell to STFU",
                                 callback: (passthrough) => {
                                     socket.emit("talk", passthrough.pub.name + ", shut the fuck up RIGHT NOW, " + (Math.random() > 0.5 ? " because I'm tired of your bullshit." : " NOW!"));
+                                }
+                            },
+                            {
+                                type: 0,
+                                name: "Tell a Random Copypasta",
+                                callback: (passthrough) => {
+                                    const templates = [
+                                        "{TITLE}WORLD: {MINTITLE} is {RANK}, {PERSON} is a {THING}... Here are top 5 {THING} to earn a prize \"{TITLE2}\". **5. {QUOTE}, Said by {PERSON}, 4. {QUOTE}, Said by {PERSON}, 3. {QUOTE}, Said by {PERSON}, 2. {QUOTE}, Said by {PERSON}, 1. {QUOTE}, Said by {PERSON}.**",
+                                        "I'm a {PERSON}'s {THING}. and this is my {TITLE}: {MINTITLE} that have been {THING} by {PERSON} in honor of {TITLE}Chat. Hi, my name is {PERSON2}, and this is my website that I own, named \"{TITLE2}\"",
+                                        "breaking news: {PERSON} has been confirmed to be a {THING} after the {TITLE} incident. {QUOTE} - source: {PERSON2} from {MINTITLE}{TITLE}",
+                                        "{PERSON} walked into the {TITLE} room and said: {QUOTE}. everyone gasped. {PERSON2} replied: {QUOTE}. the {THING} began.",
+                                        "in the year 20{RANDOMNUM}, {TITLE} was declared {RANK} by {PERSON}. the {THING} protocol was activated. {QUOTE}",
+                                        "according to {PERSON2}, {PERSON} is secretly a {THING}. evidence: {QUOTE}. this contradicts earlier statements from {MINTITLE}{TITLE}.",
+                                        "the {TITLE} agenda: step 1) {QUOTE} step 2) {QUOTE} step 3) become a {THING}. sponsored by {PERSON}'s {MINTITLE}.",
+                                        "{PERSON} vs {PERSON2}: the ultimate {THING} battle. round 1: {QUOTE}. round 2: {QUOTE}. winner: {RANK}.",
+                                        "leaked document from {TITLE} reveals {PERSON} is planning to {THING} the {MINTITLE}. key phrase: {QUOTE}.",
+                                        "{PERSON} uploaded a video titled \"{TITLE2}\" where they {QUOTE}. comment from {PERSON2}: {QUOTE}. {THING} confirmed.",
+                                        "the {TITLE} theory suggests that {PERSON} is actually {PERSON2} in disguise. proof: {QUOTE}. implications: {RANK}.",
+                                        "{PERSON}'s last words before becoming a {THING}: {QUOTE}. {PERSON2} responded with: {QUOTE}. {TITLE} was never the same.",
+                                        "in a shocking turn of events, {PERSON} admitted to being a {THING}. {QUOTE}. {PERSON2} immediately {QUOTE}. {TITLE} history.",
+                                        "the {MINTITLE} manifesto: chapter 1 - {QUOTE}. chapter 2 - how to identify a {THING}. chapter 3 - {PERSON}'s downfall.",
+                                        "{PERSON} was caught {QUOTE} in the {TITLE} server. {PERSON2} reacted by {QUOTE}. the {THING} scandal.",
+                                        "according to anonymous sources, {PERSON} and {PERSON2} are working together to {THING} the {TITLE} community. leaked message: {QUOTE}.",
+                                        "the {TITLE} enigma: why does {PERSON} keep saying {QUOTE}? is it related to the {THING} phenomenon? {PERSON2} thinks so.",
+                                        "{PERSON} announced the \"{TITLE2}\" project, described as {RANK}. first feature: {QUOTE}. critics call it {THING}.",
+                                        "behind the scenes at {TITLE}: {PERSON} was overheard saying {QUOTE} to {PERSON2}. the {THING} conspiracy deepens.",
+                                        "{PERSON}'s guide to becoming a {THING}: 1) {QUOTE} 2) join {TITLE} 3) {QUOTE} 4) profit. reviewed by {PERSON2} as {RANK}.",
+                                        "the {TITLE} tapes: recording shows {PERSON} admitting {QUOTE}. {PERSON2} can be heard saying {QUOTE} in background. {THING} confirmed.",
+                                        "{PERSON} vs {TITLE}: the battle for {MINTITLE}. {PERSON2} mediates with {QUOTE}. outcome: {RANK}.",
+                                        "inside {PERSON}'s {TITLE} folder: {QUOTE}, {QUOTE}, and plans to {THING}. {PERSON2} commented: {QUOTE}.",
+                                        "the {THING} protocol has been activated by {PERSON}. {QUOTE}. {TITLE} officials including {PERSON2} responded with {QUOTE}.",
+                                        "{PERSON} created a new {TITLE} called \"{TITLE2}\". description: {QUOTE}. {PERSON2} rated it {RANK}. controversy: {THING}.",
+                                        "lost {TITLE} transcript reveals {PERSON} telling {PERSON2}: {QUOTE}. this led to the {THING} incident of 20{RANDOMNUM}.",
+                                        "{PERSON}'s {TITLE} diary: day 1 - {QUOTE}. day 2 - met a {THING}. day 3 - {PERSON2} said {QUOTE}. day 4 - {RANK}.",
+                                        "the {TITLE} equation: {PERSON} + {QUOTE} = {THING}. proof provided by {PERSON2}: {QUOTE}. solution: {MINTITLE}.",
+                                        "{PERSON} was banned from {TITLE} for {QUOTE}. {PERSON2} defended them saying {QUOTE}. the {THING} debate continues.",
+                                        "according to {TITLE} analytics, {PERSON} is {RANK} likely to become a {THING}. key indicator: {QUOTE}. {PERSON2} disagrees: {QUOTE}."
+                                    ];
+
+                                    const words = {
+                                        RANDOMNUM: ["XX", "-ACK! WE DO NEVER KNOW WHAT YEAR IT IS....", "99", "BW", "00", "25", "20", "0000", "2130784732732483", "2020202020020", "222222222222222222222222222"],//they are 2 number digit they are pretty useless but used for 20XX something
+                                        TITLE: ["Bonzi", "gold", "Nazar", "Erik", "Peedy", "Shit", "Retarded", "Ultimate", "Epic", "OG", "New", "Old"],
+                                        TITLE2: ["BonziPOOP Gassy world", "nazar nazar tarzan", "egg pelvis WORLD", "E. gons", "chocolate chat for DroolBOX.", "/joke", "$****r****$ skirts lover", "godmode world", "gassy", "FREE POPE WORLD"],
+                                        MINTITLE: ["Revived", "Retard", "Rerevived", "Recarbonated", "Ultra", "CC", ".net", ".org", "Ultimate", "Erik's server", "BWI", "BIA", "ASSWIPE", "GASSY", "Classic", "Pro", "Lite", "HD", "VR"],
+                                        RANK: ["disgusting", "awesome", "gemmy", "coal", "brimstone", "COAL", "GEMMY", "cool", "MEGA GEMMY", "downloaded", "leaked", "dead", "silent", "too famous", "famous", "mid", "S-tier", "F-tier"],
+                                        PERSON: ["erik", "fune", "jim", "sticky", "scrabby", "siob", "jy", "*g*BIA*g*", "*g*BWI*g*", "ziggy", "soyjaks", "the bonzis", "3 team of birds", "ahmads", "asshair", "niggo", "bonzi", "admin", "mod"],
+                                        PERSON2: ["grimmy", "eric trawlas", "slop master", "porn destroyer", "birdyyy", "uwu lost sock gaming", "[[bonzipenis]]", "sharty", "X88B88", "erik's grim reaper", "soyjak king", "[[fVk3]]", "LBTY"],
+                                        THING: ["pedophile", "awesome", "shithead", "blessed", "banned", "nuked", "kicked", "ultra blessed", "banned from BWI", "youtuber", "troonout", "troon", "killed", "legend", "noob", "god"],
+                                        QUOTE: ["its from the logs", "stfu", "retard", "gofag", "mason alt", "nuke me", "soyballs", "bonziworld is gay", "temp banned", "SHUT THE FUCK UP", "LMFAO", "based", "cringe", "skill issue"]
+                                    };
+
+                                    const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+                                    const template1 = getRandom(templates);
+                                    const template2 = getRandom(templates);
+                                    const template3 = getRandom(templates);
+
+                                    const createReplacer = () => {
+                                        const usedValues = {};
+
+                                        return (str) => {
+                                            return str.replace(/\{(\w+)\}/g, (match, placeholder) => {
+                                                if (!words[placeholder]) return match;
+
+                                                //call some one click-ed 50% chance
+                                                if (placeholder === 'PERSON') {
+                                                    if (Math.random() > 0.5) {
+                                                        return passthrough.pub.name;
+                                                    } else {
+                                                        let value = getRandom(words[placeholder]);
+
+                                                        const key = `${placeholder}_${value}`;
+                                                        for (let i = 0; i < 3; i++) {
+                                                            if (!usedValues[key]) {
+                                                                usedValues[key] = true;
+                                                                return value;
+                                                            }
+                                                            value = getRandom(words[placeholder]);
+                                                        }
+                                                        return value;
+                                                    }
+                                                }
+
+                                                let value = getRandom(words[placeholder]);
+
+                                                if (placeholder === 'QUOTE') {
+                                                    const key = `${placeholder}_${value}`;
+                                                    for (let i = 0; i < 3; i++) {
+                                                        if (!usedValues[key]) {
+                                                            usedValues[key] = true;
+                                                            return value;
+                                                        }
+                                                        value = getRandom(words[placeholder]);
+                                                    }
+                                                }
+
+                                                return value;
+                                            });
+                                        };
+                                    };
+
+                                    const replacer1 = createReplacer();
+                                    const replacer2 = createReplacer();
+                                    const replacer3 = createReplacer();
+
+                                    const message1 = replacer1(template1);
+                                    const message2 = replacer2(template2);
+                                    const message3 = replacer3(template3);
+
+                                    //const combinedMessage = message1 + " " + message2 + " " + message3;
+                                    //too long. nevermind..
+
+
+                                    const combinedMessage = message1 + " " + message2;
+
+                                    socket.emit("talk", combinedMessage);
                                 }
                             },
                         ]
