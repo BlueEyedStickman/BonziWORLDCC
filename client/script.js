@@ -130,7 +130,7 @@ async function clipboard(text) {
         "peedy": "peedy",
         "clippy": "clippy"
     }
-    const colors = ["purple", "blessed", "yellow", "gigglyfuneclown", "red", "blue", "green", "pink", "brown", "orange", "black", "jew", "cyan", "white", "king", "pope", "rabbi", "peedy", "clippy", "troll", "jabba", "spadezi", "raging"];
+    const colors = ["purple", "blessed", "yellow", "gigglyfuneclown", "red", "blue", "green", "pink", "brown", "orange", "black", "jew", "cyan", "white", "king", "pope", "tbes", "rabbi", "peedy", "clippy", "troll", "jabba", "spadezi", "raging"];
 
     const sheets = {
         bonzi: {
