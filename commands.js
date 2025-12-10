@@ -103,7 +103,7 @@ module.exports.commands = {
 		}
 
 
-			if (hat === "king" && (user.level >= 3 || user.room.ownerID === user.public.guid)) {
+			if (hat === "king" && (user.level >= 1 || user.room.ownerID === user.public.guid)) {
 				newHats.push("king");
 			}
 			else if (validHats.includes(hat) && !newHats.includes(hat)) {
