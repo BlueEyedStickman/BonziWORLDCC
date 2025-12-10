@@ -102,6 +102,15 @@ module.exports.commands = {
 			}
 		}
 
+
+			if (hat === "king" && (user.level >= 1 || user.room.ownerID === user.public.guid)) {
+				newHats.push("king");
+			}
+			else if (validHats.includes(hat) && !newHats.includes(hat)) {
+				newHats.push(hat);
+			}
+		}
+
 		user.hats = newHats;
 		user.public.hats = user.hats;
 		user.room.emit("update", user.public);
