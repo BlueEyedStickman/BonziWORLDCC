@@ -249,9 +249,10 @@ SyntaxError: Unexpected identifier 'user'
 	},
 	jimmy: (user, param) => {
 		user.public.color = "black";
+		user.public.name = "###**ubuntu jimmy";
 		user.public.tagged = true;
 		//markdowns didnt fuggin' workd
-		user.public.tag = "<b><i>Owner of BWI</b></i>";
+		user.public.tag = "<span style='animation: 2s rainbow infinite;'><b><i>Owner of BWI</b></i></span>";
 
 		if (!user.hats.includes("jim")) {
 			user.hats.push("jim");

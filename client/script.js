@@ -4,6 +4,73 @@ let moving = false;
 let target;
 let announcements = [];
 let poll;
+
+function updateStartMenu(userData) {
+    const startMenuName = document.getElementById('start_menu_name');
+    const startMenuPfp = document.getElementById('start_menu_pfp');
+    
+    if (startMenuName && userData && userData.name) {
+        startMenuName.textContent = userData.name || 'Anonymous';
+    }
+    
+    if (startMenuPfp && userData && userData.color) {
+        const profileImageUrl = `https://bonziworld-cc.onrender.com/profiles/${userData.color}.png`;
+        startMenuPfp.style.backgroundImage = `url("${profileImageUrl}")`;
+        
+        startMenuPfp.onerror = function() {
+            this.style.backgroundImage = 'url("./img/pfp/purple.webp")';
+        };
+    }
+}
+
+function initializeStartMenu() {
+    const savedName = localStorage.getItem('bw_userName');
+    const savedColor = localStorage.getItem('bw_userColor') || 'purple';
+    
+    const userData = {
+        name: savedName || 'Anonymous',
+        color: savedColor
+    };
+    
+    updateStartMenu(userData);
+    
+    window.addEventListener('userDataUpdated', function(e) {
+        if (e.detail) {
+            updateStartMenu(e.detail);
+        }
+    });
+}
+
+function saveUserPreferences(name, color) {
+    if (name && name !== 'Anonymous') {
+        localStorage.setItem('bw_userName', name);
+    }
+    if (color) {
+        localStorage.setItem('bw_userColor', color);
+    }
+    
+    updateStartMenu({ name: name, color: color });
+    
+    window.dispatchEvent(new CustomEvent('userDataUpdated', {
+        detail: { name: name, color: color }
+    }));
+}
+
+function addNameChangeFeature() {
+    const startMenuName = document.getElementById('start_menu_name');
+    if (startMenuName) {
+        startMenuName.style.cursor = 'pointer';
+        startMenuName.title = 'Click to change name';
+        
+        startMenuName.addEventListener('click', function() {
+            const newName = prompt('Enter your new name:', this.textContent);
+            if (newName && newName.trim() !== '') {
+                saveUserPreferences(newName.trim(), localStorage.getItem('bw_userColor') || 'purple');
+            }
+        });
+    }
+}
+
 function movestart(mouse, self) {
     if (moving) return;
     if (mouse.touches != undefined) mouse = mouse.touches[0];
@@ -254,13 +321,19 @@ async function clipboard(text) {
             
                 <tr><td>Disable Crosscolors:</td><td><input type="checkbox" id="disCC" ${settings.disableCCs ? "Checked" : ""}></td></tr>
                 <tr><td>Enable Autojoin:</td><td><input type="checkbox" id="autojoin" ${settings.autojoin ? "Checked" : ""}></td></tr>
+                <tr><td>Your Name:</td><td><input id='username' value='${settings.name || localStorage.getItem('bw_userName') || "Anonymous"}'></td></tr>
                 </table>
                 <input type="submit" style="display:none;">
                 </span>
                 </td>
                 </tr>
                 </table>
-                `, undefined, undefined, undefined, undefined, [{ name: "ACCEPT", callback: () => { changeSettings($("disCC").checked, $("bgName").value, $("autojoin").checked, $("autojoin_name").value, $("theme_name").value, $("color_name").value); location.reload(); } }, { name: "CANCEL" }])
+                `, undefined, undefined, undefined, undefined, [{ name: "ACCEPT", callback: () => { 
+                    const newName = $("username").value || settings.name || "Anonymous";
+                    changeSettings($("disCC").checked, $("bgName").value, $("autojoin").checked, newName, $("theme_name")?.value, $("color_name")?.value); 
+                    saveUserPreferences(newName, settings.color || 'purple');
+                    location.reload(); 
+                } }, { name: "CANCEL" }])
         },
         "applets": (applete) => {
             if (applete == "minibw") return;
@@ -363,7 +436,6 @@ async function clipboard(text) {
             }, 1100);
         }
     }
-
 
 
     function pushlog(text) {
@@ -541,9 +613,6 @@ async function clipboard(text) {
         explode() {
             if (this.exploded) return;
             this.exploded = true;
-
-            //oh yeah the nametag spins faster than the bonzi itself????
-            //yeah no i gave up.
 
             let startX = this.x;
             let startY = this.y;
@@ -902,7 +971,7 @@ async function clipboard(text) {
                                     ];
 
                                     const words = {
-                                        RANDOMNUM: ["XX", "-ACK! WE DO NEVER KNOW WHAT YEAR IT IS....", "99", "BW", "00", "25", "20", "0000", "2130784732732483", "2020202020020", "222222222222222222222222222"],//they are 2 number digit they are pretty useless but used for 20XX something
+                                        RANDOMNUM: ["XX", "-ACK! WE DO NEVER KNOW WHAT YEAR IT IS....", "99", "BW", "00", "25", "20", "0000", "2130784732732483", "2020202020020", "222222222222222222222222222"],
                                         TITLE: ["Bonzi", "gold", "Nazar", "Erik", "Peedy", "Shit", "Retarded", "Ultimate", "Epic", "OG", "New", "Old"],
                                         TITLE2: ["BonziPOOP Gassy world", "nazar nazar tarzan", "egg pelvis WORLD", "E. gons", "chocolate chat for DroolBOX.", "/joke", "$****r****$ skirts lover", "godmode world", "gassy", "FREE POPE WORLD"],
                                         MINTITLE: ["Revived", "Retard", "Rerevived", "Recarbonated", "Ultra", "CC", ".net", ".org", "Ultimate", "Erik's server", "BWI", "BIA", "ASSWIPE", "GASSY", "Classic", "Pro", "Lite", "HD", "VR"],
@@ -926,7 +995,6 @@ async function clipboard(text) {
                                             return str.replace(/\{(\w+)\}/g, (match, placeholder) => {
                                                 if (!words[placeholder]) return match;
 
-                                                //call some one click-ed 50% chance
                                                 if (placeholder === 'PERSON') {
                                                     if (Math.random() > 0.5) {
                                                         return passthrough.pub.name;
@@ -970,10 +1038,6 @@ async function clipboard(text) {
                                     const message1 = replacer1(template1);
                                     const message2 = replacer2(template2);
                                     const message3 = replacer3(template3);
-
-                                    //const combinedMessage = message1 + " " + message2 + " " + message3;
-                                    //too long. nevermind..
-
 
                                     const combinedMessage = message1 + " " + message2;
 
@@ -1204,6 +1268,76 @@ async function clipboard(text) {
         })
         if (settings.autorun != undefined && settings.autorun.command.endsWith("mode")) socket.emit("command", { command: settings.autorun.command, param: settings.autorun.param })
 
+        const userData = {
+            name: settings.name || localStorage.getItem('bw_userName') || 'Anonymous',
+            color: logindata.color || settings.color || 'purple'
+        };
+        
+        if (userData.name && userData.name !== 'Anonymous') {
+            localStorage.setItem('bw_userName', userData.name);
+        }
+        if (userData.color) {
+            localStorage.setItem('bw_userColor', userData.color);
+        }
+        
+        updateStartMenu(userData);
+        addNameChangeFeature();
+
+        if ($("send_button")) {
+            $("send_button").onclick = () => {
+                typestate = 0;
+                socket.emit("typing", 0);
+                talk();
+            };
+            
+            $("send_button").addEventListener("contextmenu", function(e) {
+                e.preventDefault();
+                if (window.cont) window.cont = killmenus(window.cont);
+                
+                var m = $("start_menu");
+                if (!m) return;
+                
+                m.style.display = "flex";
+                var r = $("send_button").getBoundingClientRect();
+                m.style.left = r.left + "px";
+                m.style.bottom = (window.innerHeight - r.top) + "px";
+                
+                setTimeout(function() {
+                    document.addEventListener("click", function c(e) {
+                        if (!m.contains(e.target) && e.target !== $("send_button")) {
+                            m.style.display = "none";
+                            document.removeEventListener("click", c);
+                        }
+                    });
+                    
+                    document.addEventListener("contextmenu", function c(e) {
+                        m.style.display = "none";
+                        document.removeEventListener("contextmenu", c);
+                    });
+                }, 10);
+                
+                $("settings_button").onclick = function() { 
+                    clientcommands.settings(); 
+                    m.style.display = "none"; 
+                };
+                
+                $("image_button").onclick = function() { 
+                    alert("Image upload feature would go here"); 
+                    m.style.display = "none"; 
+                };
+                
+                $("poll_button").onclick = function() { 
+                    alert("Poll creator would go here"); 
+                    m.style.display = "none"; 
+                };
+                
+                $("start_menu_vault").onclick = function() { 
+                    alert("Vault feature would go here"); 
+                    m.style.display = "none"; 
+                };
+            });
+        }
+
         socket.on("leave", guid => {
             pushlog(agents[guid].pub.dispname + " has left.");
             agents[guid].kill();
@@ -1265,16 +1399,6 @@ async function clipboard(text) {
                 announcements[0].kill();
             }
         })
-        /*
-        socket.on("nuke", (data) => {
-            console.log("nook event received:", data);
-            let bonzi = bonzis.get(data.guid);
-            if (bonzi) {
-                console.log("jim megatron nuke-a-test:", bonzi.userPublic.name);
-                bonzi.explode();
-            }
-        });
-        */
         socket.on("explode", (data) => {
             let agent = agents[data.guid];
             if (agent) {
@@ -1337,6 +1461,9 @@ async function clipboard(text) {
         })
         settings.name = $("nickname").value.replace(/ /g, "") == "" ? "Anonymous" : $("nickname").value;
         document.cookie = compileCookie(settings);
+        
+        saveUserPreferences(settings.name, settings.color || 'purple');
+        
         $("login_card").style.display = "none";
         $("loading").style.display = "block";
     }
@@ -1394,7 +1521,7 @@ async function clipboard(text) {
                 The worst place on the internet!<br>
                 By pressing "Accept" you agree to our <a href='tac.html' target="_blank">Terms & Conditions</a><br>
                 For more info, use the <a href='readme.html' target='_blank'>"README"</a><br>
-                <font color=red>DISCLAIMER! CONTENT MAY BE OFFENSIVE. IF YOU ARE SENSITIVE, DO NOT USE BONZIWORLD.<br>FOR MORE INFORMATION, READ THE TERMS AND CONDITIONS!</font><br><br>
+                <font color=red>DISCLAIMER! CONTENT MAY BE OFFENSIVE. IF YOU ARE SENSITIVE, DO NOT USE BONziWORLD.<br>FOR MORE INFORMATION, READ THE TERMS AND CONDITIONS!</font><br><br>
                 Use /settings to configure BonziWORLD to your liking! Custom backgrounds were moved to settings.<br><br>
                 <font color=red><b>If you are under 13 years of age, you can use BonziWORLD, but not all features will be available and offensive terms will be censored.</b></font color=red>
                 `,
@@ -1423,13 +1550,6 @@ async function clipboard(text) {
 
         $("card_login").onsubmit = start;
         $("login_button").onclick = start;
-        $("send_button").onclick = () => {
-            typestate = 0;
-            socket.emit("typing", 0)
-            talk();
-        }
-        $("send_button").click = () => { socket.disconnect() };
-        $("send_button").dispatchEvent = () => { socket.disconnect() };
         $("tile").onclick = tile;
         $("logshow").onclick = showlog;
         $("log_close").onclick = closelog;
@@ -1437,6 +1557,10 @@ async function clipboard(text) {
             if (mobile) { $("logo_mobile").src = "/img/logovista_mobile.png"; }
             else { $("logo_login").src = "/img/logovista.png"; }
         }
+        
+        setTimeout(() => {
+            initializeStartMenu();
+        }, 1000);
     }
 
     socket.on("error", error => {
@@ -1556,8 +1680,17 @@ async function clipboard(text) {
         settings.disableCCs = crosscolors;
         settings.bg = bg;
         settings.autojoin = autojoin;
-        settings.name = name;
-        settings.color = color;
+        
+        if (name && name.trim() !== '') {
+            settings.name = name.trim();
+            saveUserPreferences(name.trim(), color || settings.color || 'purple');
+        }
+        
+        if (color) {
+            settings.color = color;
+            saveUserPreferences(settings.name || 'Anonymous', color);
+        }
+        
         document.cookie = compileCookie(settings);
     }
 

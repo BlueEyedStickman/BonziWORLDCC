@@ -1083,3 +1083,105 @@ span .bubble_text{
 @keyframes explosion {
     100% { background-position: -1207px; }
 }
+
+#start_menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    bottom: 32px;
+    left: 0px;
+    width: 300px;
+    height: 500px;
+    border-image: url("./img/desktop/start_menu.png") 64 59 40 59 / 64px 59px 40px 59px;
+    box-shadow: 2px 2px 4px #0004;
+    border-top-right-radius: 7px;
+    image-rendering: pixelated;
+    z-index: 9000;
+    background: white;
+}
+
+#start_menu_pfp {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    width: 54px;
+    height: 54px;
+    border: 3px solid #ffffffaa;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: #0f0f0f url("./img/pfp/purple.webp");
+    background-size: contain;
+    image-rendering: auto;
+}
+
+#start_menu_name {
+    position: absolute;
+    font-size: 20px;
+    top: 21px;
+    left: 70px;
+    color: white;
+    text-shadow: #000000aa 2px 2px 2px;
+}
+
+#start_menu_body {
+    position: absolute;
+    top: 64px;
+    left: 2px;
+    bottom: 40px;
+    right: 2px;
+    padding-top: 6px;
+    background:
+        linear-gradient(to bottom, transparent 2px, white 2px), 
+        linear-gradient(in srgb-linear to right, white, #cc0 10% 90%, white);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.start_menu_item {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    height: 40px;
+    padding: 2px 2px 2px 12px;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.start_menu_item:hover {
+    background-color: #88aaff;
+    color: white;
+}
+
+.start_menu_item_icon {
+    image-rendering: auto;
+    aspect-ratio: 1 / 1;
+    height: 100%;
+}
+
+.start_menu_item_details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-self: center;
+    flex: 1;
+}
+
+.start_menu_item_name {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.start_menu_item_description {
+    font-size: 12px;
+}
+
+#start_menu_vault {
+    position: absolute;
+    bottom: 4px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    background: url("./img/desktop/vault.png");
+    cursor: pointer;
+}
