@@ -84,7 +84,7 @@ module.exports.commands = {
 		}
 
 		const validHats = ["bfdi", "bieber", "bowtie", "bucket", "bull", "cap", "chain", "chef", "cigar", "cowboy", "dank", "elon",
-			"evil", "glitch", "horse", "illuminati", "illuminati2", "kfc", "king", "maga", "ninja", "pan", "pot", "propeller", "satan", "tophat", "trash", "troll", "witch", "wizard", "aids", "jartycuck"
+			"evil", "glitch", "horse", "illuminati", "illuminati2", "kfc", "maga", "ninja", "pan", "pot", "propeller", "satan", "tophat", "trash", "troll", "witch", "wizard", "aids", "jartycuck"
 		];
 
 		let hatList = param.split(" ").filter(hat => hat.trim() !== "");
@@ -96,6 +96,15 @@ module.exports.commands = {
 			//thats on me
 			if (hat === "jim" && (user.level >= 3 || user.room.ownerID === user.public.guid)) {
 				newHats.push("jim");
+			}
+			else if (validHats.includes(hat) && !newHats.includes(hat)) {
+				newHats.push(hat);
+			}
+		}
+
+
+			if (hat === "king" && (user.level >= 1 || user.room.ownerID === user.public.guid)) {
+				newHats.push("king");
 			}
 			else if (validHats.includes(hat) && !newHats.includes(hat)) {
 				newHats.push(hat);
