@@ -84,7 +84,11 @@ module.exports.commands = {
 		}
 
 		const validHats = ["bfdi", "bieber", "bowtie", "bucket", "bull", "cap", "chain", "chef", "cigar", "cowboy", "dank", "elon",
-			"evil", "glitch", "horse", "illuminati", "illuminati2", "kfc", "maga", "ninja", "pan", "pot", "propeller", "satan", "tophat", "trash", "troll", "witch", "wizard", "aids", "jartycuck"
+			"evil", "glitch", "horse", "illuminati", "illuminati2", "kfc", "maga", "ninja", "pan", "pot", "propeller", "satan", "tophat",
+			"trash", "troll", "witch", "wizard", "aids", "jartycuck",
+			
+			//im feeling jolly
+			"santa", "xmasbowtie"
 		];
 
 		let hatList = param.split(" ").filter(hat => hat.trim() !== "");
@@ -97,13 +101,15 @@ module.exports.commands = {
 			if (hat === "jim" && (user.level >= 3 || user.room.ownerID === user.public.guid)) {
 				newHats.push("jim");
 			}
-			else if (validHats.includes(hat) && !newHats.includes(hat)) {
-				newHats.push(hat);
-			}
-		}
+			//fixed so that it wont fuck up the server.. (probably..............)
+			/*because
+			Uncaught SyntaxError C:\Users\Gaming Pc\Downloads\BonziWORLDCC\commands.js:115
+		user.hats = newHats;
+		^^^^
 
-
-			if (hat === "king" && (user.level >= 1 || user.room.ownerID === user.public.guid)) {
+SyntaxError: Unexpected identifier 'user'
+    at wrapSafe (<node_internals>/internal/modules/cjs/loader:1662:*/
+			else if (hat === "king" && (user.level >= 1 || user.room.ownerID === user.public.guid)) {
 				newHats.push("king");
 			}
 			else if (validHats.includes(hat) && !newHats.includes(hat)) {
