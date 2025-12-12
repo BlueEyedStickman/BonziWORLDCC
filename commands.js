@@ -606,24 +606,45 @@ SyntaxError: Unexpected identifier 'user'
 		user.room.emit("vote", user.room.polldata);
 	},
 	ban: (user, param) => {
-		if (!param.includes(" ")) return;
-		let reason = param.substring(param.indexOf(" ") + 1, param.length);
-		param = param.substring(0, param.indexOf(" "));
-		if (reason.replace(/ /g, '') == '') {
-			user.socket.emit("window", { title: "BAN FAILED", html: "MUST SPECIFY BAN REASON" });
-			return;
-		}
+	    if (typeof param !== 'string') return;
+	    if (!param.includes(" ")) {
+	        user.socket.emit("window", { title: "BAN FAILED", html: "MUST SPECIFY TARGET AND REASON (ip reason)" });
+	        return;
+	    }
 
-		module.exports.bans.push(param.includes(":") ? ipToInt(param) >> BigInt(64) : param);
-		module.exports.reasons.push(reason);
-		Object.keys(user.room.users).forEach((usr) => {
-			let toban = user.room.users[usr];
-			if (toban.socket.ip == param) {
-				toban.socket.emit("ban", { ip: param, bannedby: user.public.name, reason: reason });
-				toban.socket.disconnect();
-			}
-		})
-		fs.appendFileSync("./config/bans.txt", param + '/' + reason + "\n")
+	    let target = param.substring(0, param.indexOf(" "));
+	    let reason = param.substring(param.indexOf(" ") + 1).trim();
+	
+	    if (reason.replace(/[\r\n]/g, '').trim() === '') {
+	        user.socket.emit("window", { title: "BAN FAILED", html: "MUST SPECIFY BAN REASON" });
+	        return;
+	    }
+
+
+		
+	    target = normalizeIP(target);
+	    // sanitize reason to a single-line safe string
+	    reason = reason.replace(/\r?\n/g, ' ').trim();
+
+	    // store normalized string IP (keeps type consistent)
+	    module.exports.bans.push(target);
+	    module.exports.reasons.push(reason);
+
+	    // disconnect any matching connected users (normalize their socket.ip too)
+	    Object.keys(user.room.users).forEach((usr) => {
+	        let toban = user.room.users[usr];
+	        if (normalizeIP(toban.socket.ip) === target) {
+	            toban.socket.emit("ban", { ip: target, bannedby: user.public.name, reason: reason });
+	            toban.socket.disconnect();
+	        }
+	    });
+
+	    // append to file (single-line "ip/reason"), reason already sanitized
+	    try {
+	        fs.appendFileSync("./config/bans.txt", target + '/' + reason + "\n");
+	    } catch (e) {
+	        console.error("Failed to append ban to file:", e);
+	    }
 	},
 	lip: (user) => {
 		user.socket.emit("window", { title: "last IP", html: module.exports.lip });
@@ -762,6 +783,11 @@ function find(guid) {
 	})
 	return usr;
 }
+
+function normalizeIP(ip) {
+    if (!ip) return ip;
+    if (typeof ip === 'string' && ip.includes(',')) ip = ip.split(',')[0];
+    return ip.toString().trim();
 
 function tags(text, user) {
 	text = text.replace(/{NAME}/g, user.public.name).replace(/{COLOR}/g, user.public.color);
