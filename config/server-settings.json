@@ -1,6 +1,6 @@
 {
 	"port": 3000,
-	"godword": "81db8ef5ef5c4b16ec52e0cfeaba2171aff7a3eef7054a23bf89e496bc166e20",
+	"godword": "6282cec320636100122ea721d6135c846a26dd5f94d8fbd0e9ec3a76ddf5b61c",
 	"kingwords": ["9b4723349101da0c10cc4f0f846ced4c97e6e0c800ff30ca2e11d1541eb808d8"],
 	"lowkingwords": ["9aac22b4ae9ef5ae1f5c9133caa03aeb22541fcb77f8050ae7254e757c5badd7"],
 	"defname": "Anonymous",
@@ -31,7 +31,7 @@
 		"kick": 2,
 		"nuke": 2,
 		"mute": 1,
-		"tag": 1,
+		"tag": 0,
 		"king": 1,
 		"bless": 1,
 		"useredit": 1,
