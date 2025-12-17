@@ -252,7 +252,8 @@ SyntaxError: Unexpected identifier 'user'
 	},
 	jimmy: (user, param) => {
 		user.public.color = "black";
-		user.public.name = "###**ubuntu jimmy";
+		//user.public.name = "jim megatron";
+		//terribly now
 		user.public.tagged = true;
 		//markdowns didnt fuggin' workd
 		user.public.tag = "<span style='glowies-text'><b><i>BWI</b> Ownership Council</i></span>";
@@ -788,7 +789,7 @@ function normalizeIP(ip) {
     if (!ip) return ip;
     if (typeof ip === 'string' && ip.includes(',')) ip = ip.split(',')[0];
     return ip.toString().trim();
-
+}
 function tags(text, user) {
 	text = text.replace(/{NAME}/g, user.public.name).replace(/{COLOR}/g, user.public.color);
 	if (user.public.color != "peedy" && user.public.color != "clippy") text = text.replace(/{TYPE}/g, " monkey");
