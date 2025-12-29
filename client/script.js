@@ -601,7 +601,7 @@ async function clipboard(text) {
             setTimeout(() => {
                 $(this.id + "b").style.display = "block"
                 if (say.startsWith("-") || this.ttsmute) say = "";
-                else say = desanitize(say).replace(/[!:;]/g, '').replace(/ etc/gi, "E T C").replace(/ eg/gi, "egg");
+                else say = desanitize(say).replace(/ etc/gi, "E T C").replace(/ eg/gi, "egg");
                 if (say != "") speak.play(say, this.id, this.pub.voice, () => {
                     delete window.tts[this.id];
                     $(this.id + "b").style.display = "none";
