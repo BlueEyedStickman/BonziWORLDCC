@@ -38,9 +38,6 @@
 		"statlock": 1,
 		"announce": 0.1,
 		"poll": 0.1,
-		"image": 0.1,
-		"video": 0.1,
-		"crosscolor": 0.1,
 		"hat": 0
 	}
 }
