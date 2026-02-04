@@ -90,8 +90,6 @@ module.exports.commands = {
 			"evil", "glitch", "horse", "illuminati", "illuminati2", "kfc", "maga", "ninja", "pan", "pot", "propeller", "satan", "tophat",
 			"trash", "troll", "witch", "wizard", "aids", "jartycuck",
 			
-			//im feeling jolly
-			"santa", "xmasbowtie"
 		];
 
 		let hatList = param.split(" ").filter(hat => hat.trim() !== "");
@@ -103,6 +101,9 @@ module.exports.commands = {
 			//thats on me
 			if (hat === "jim" && (user.level >= 3 || user.room.ownerID === user.public.guid)) {
 				newHats.push("jim");
+			}
+			if (hat === "megatron" && (user.level >= 3 || user.room.ownerID === user.public.guid)) {
+				newHats.push("megatron");
 			}
 			//fixed so that it wont fuck up the server.. (probably..............)
 			/*because
@@ -256,10 +257,25 @@ SyntaxError: Unexpected identifier 'user'
 		//terribly now
 		user.public.tagged = true;
 		//markdowns didnt fuggin' workd
-		user.public.tag = "<span style='glowies-text'><b><i>BWI</b> Ownership Council</i></span>";
+		user.public.tag = "jim megatron";
 
 		if (!user.hats.includes("jim")) {
 			user.hats.push("jim");
+			user.public.hats = user.hats;
+		}
+
+		user.room.emit("update", user.public);
+	},
+	tronniel: (user, param) => {
+		user.public.color = "black";
+		//user.public.name = "jim megatron";
+		//terribly now
+		user.public.tagged = true;
+		//markdowns didnt fuggin' workd
+		user.public.tag = "jim megatron";
+
+		if (!user.hats.includes("megatron")) {
+			user.hats.push("megatron");
 			user.public.hats = user.hats;
 		}
 
