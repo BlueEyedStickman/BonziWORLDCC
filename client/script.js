@@ -22,7 +22,12 @@ function updateStartMenu(userData) {
         };
     }
 }
-
+function spawnStartMenu(){
+    $('start_menu').style.display='flex';
+    $('start_menu').style.position='absolute';
+    $('start_menu').style.left='0px';
+    $('start_menu').style.bottom='32px';
+}
 function initializeStartMenu() {
     const savedName = localStorage.getItem('bw_userName');
     const savedColor = localStorage.getItem('bw_userColor') || 'purple';
@@ -1298,8 +1303,7 @@ async function clipboard(text) {
                 talk();
             };
             
-            $("send_button").addEventListener("contextmenu", function(e) {
-                e.preventDefault();
+            $("start_button").addEventListener("click", function(e) {
                 if (window.cont) window.cont = killmenus(window.cont);
                 
                 var m = $("start_menu");
