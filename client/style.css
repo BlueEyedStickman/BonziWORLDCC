@@ -1185,3 +1185,19 @@ span .bubble_text{
     background: url("./img/desktop/vault.png");
     cursor: pointer;
 }
+#start_button {
+    display: inline-block;
+    background-image: url(./img/start.png);
+    width: 40px;
+    background-position: -60px;
+    margin-left: -7px;
+    box-shadow: inset 0px 0px 3px 2px rgba(255,255,255,0.6);
+    border-radius: 7px;
+}
+#chatbar {
+    position: absolute;
+    top: 6px;
+    font-size: 15px;
+    width: calc(100% - 180px);
+    margin-left: 5px;
+}
