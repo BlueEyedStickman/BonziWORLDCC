@@ -1333,13 +1333,18 @@ async function clipboard(text) {
                     m.style.display = "none"; 
                 };
                 
-                $("image_button").onclick = function() { 
-                    alert("Image upload feature would go here"); 
+                $("jukebox_button").onclick = function() { 
+                    clientcommands.applets_jukebox(); 
                     m.style.display = "none"; 
                 };
                 
-                $("poll_button").onclick = function() { 
-                    alert("Poll creator would go here"); 
+                $("hats_button").onclick = function() { 
+                    clientcommands.applets_minibw(); 
+                    m.style.display = "none"; 
+                };
+
+                $("notepad_button").onclick = function() { 
+                    clientcommands.applets_notepad(); 
                     m.style.display = "none"; 
                 };
                 
