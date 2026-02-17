@@ -391,11 +391,40 @@ async function clipboard(text) {
         "applets_minibw": () => {
             if (document.body.innerHTML.includes(`<button style="width:80px;height:30px;" class="msBtn" onclick="$('dialoguemini').innerText = 'Markup and Hats';$('minicont').style.`)) return;
             if ($('content').innerHTML.includes('<iframe id="minicont"')) return;
-            new msWindow('Mini BonziWORLD', `
+            new msWindow('BonziVM', `
                 <div id="minicont"style="display:flex;flex-direction:column;width:max-content;max-width:`+ (window.innerWidth / 1.8) + `;">
-                <p id="dialoguemini">Find out the markup and hats.</p>
-                <iframe src="markupandhats.html" width="`+ (window.innerWidth / 2) + `" height="400">Loading...</iframe></div>
-                    <button style="width:80px;height:30px;" class="msBtn" onclick="$('dialoguemini').innerText = 'Markup and Hats';$('minicont').style.width = '30px';$('minicont').style.height = '30px';var r = this.onclick;this.innerText = 'Display'; this.onclick = () => {this.onclick = r; $('minicont').style.width='`+ (window.innerWidth / 2 + 100) + `px'; $('minicont').style.height = '500px'; this.innerText = 'Hide'};">Hide</button>
+                <iframe id="bonzivm_output" width="795" height="555" style="display:none;"></iframe>
+<div id="mainmenu_vm" onclick="serverstatus.innerHTML='Selected server: '+window.bonziVMsrc;">
+    <p id="serverstatus">Selected server: none</p>
+    <button class="msBtn" onclick="
+        mainmenu_vm.style.display='none';
+        bonzivm_output.style.display='block';
+        if(!window.bonziVMsrc.includes('bonzi.gay')){bonzivm_output.src = window.bonziVMsrc;}
+        else{
+        bonzivm_output.srcdoc='<h2>This server has an exception to open in a seperate window, due to chrome security policy.</h2>';
+        window.open(window.bonziVMsrc,'BonziVM','width=800, height=600');
+        }">Run VM</button>
+    <hr>
+    <button class="msBtn" onclick="window.bonziVMsrc='https://bonzi.gay';">
+    <h2>Bonzi.Gay</h2>
+    <hr>
+    Erik's standard BonziWORLD.
+    </button>
+    <button class="msBtn" onclick="window.bonziVMsrc='https://bwibe-2.onrender.com/';">
+    <h2>BonziWORLD IdealBEHH Edition 2</h2>
+    <hr>
+    IdealBEHH's BonziWORLD.
+    </button>
+     <button class="msBtn" onclick="window.bonziVMsrc='https://bonziworld-revived-1.onrender.com/';">
+    <h2>BonziWORLD Revived Classic</h2>
+    <hr>
+    Seamus's shitty bw server. Skiddable
+    </button>
+    <hr>
+    <input type="text" placeholder="Custom BonziWORLD URL" id="customurl"><button class="msBtn" onclick="window.bonziVMsrc=customurl.value;">Submit</button>
+    <br>
+    <p>Optionally, input a BonziWORLD server URL and BonziVM will attempt to run it</p>
+</div>
 
                 `, undefined, undefined, undefined, undefined, [
                 { name: "Close" }]);
