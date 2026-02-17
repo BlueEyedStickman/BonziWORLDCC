@@ -11,7 +11,7 @@
 	],
 	[
 		{"type": 1, "anim": "earth_fwd"},
-		{"type": 0, "text": "Did you know that everything that Diogo says is a topaz?"},
+		{"type": 0, "text": "Did you know that everything that Siobhan says is a topaz?"},
 		{"type": 1, "anim": "earth_back"},
 		{"type": 1, "anim": "grin_fwd"},
 		{"type": 1, "anim": "grin_back"}

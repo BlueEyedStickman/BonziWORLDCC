@@ -19,13 +19,13 @@
 			{"type": 0, "text": "I'm not here to entertain you."}
 		],
 		[
-			{"type": 0, "text": "Prepare for something Fune has never heard of, {NAME}"},
+			{"type": 0, "text": "Prepare for something Fune and Seamus have never heard of, {NAME}"},
 			{"type": 1, "anim": "praise_fwd"},
 			{"type": 0, "text": "HUMOUR!"},
 			{"type": 1, "anim": "praise_back"}
 		],
 	
-		[{"type": 0, "text": "Ready for some classic Jewish comedy?"}],
+		[{"type": 0, "text": "Ready for some classic unfunny comedy?"}],
 		[{"type": 0, "text": "Time for whatever horrible fucking jokes the creator of this site wrote."}]
 	],
 	"middle": [
@@ -58,7 +58,8 @@
 			{"type": 0, "text": "Why did the chicken cross the road?"},
 			{"type": 1, "anim": "shrug_back"},
 			{"type": 0, "text": "Ok, let's get serious. I'll let you in on a little secret the feds don't want you knowing."},
-			{"type": 0, "text": "Phones have a secret \"Instant Charging\" feature, you can enable it by microwaving your phone."}
+			{"type": 0, "text": "Phones have a secret \"Instant Charging\" feature, you can enable it by microwaving your phone."},
+			{"type": 0, "text": "Or charge it. Don't microwave your phone or it will explode!"}
 		],
 		[
 			{"type": 0, "text": "What do you call a man who shaves 10 times a day?"},
