@@ -396,11 +396,11 @@ class user{
 			setTimeout(()=>{this.slowed = false}, config.slowmode)
 			if(checkBlacklist(text) && this.level < 1) text = "GUYS LOOK OUT I SEND IP GRABBERS! DON'T TRUST ME!";
 			if(text.includes("https://windows93.net/trollbox") && this.level < 2) {
-				var b = "Windows 93 Faggot";
+				var b = "Trollbox idiot";
 				this.public.name = b;
 				this.public.dispname = b;
 				this.public.tag = b;
-				this.public.color = "windows93";
+				this.public.color = "troll";
 				this.room.emit("update", this.public);
 			}
 			text = markup(text);
@@ -411,7 +411,7 @@ class user{
 
 			if(text.rtext == "#standwithisrael" && this.public.locked == false){
 				this.public.tagged = true;
-				this.public.tag = "Israel Faggot";
+				this.public.tag = "behh";
 				this.room.emit("update", this.public);
 			} else if(text.rtext.includes("windows93.net/trollbox") && this.public.locked == false){
 				this.public.tagged = true;
