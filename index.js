@@ -415,9 +415,9 @@ class user{
 				this.room.emit("update", this.public);
 			} else if(text.rtext.includes("windows93.net/trollbox") && this.public.locked == false){
 				this.public.tagged = true;
-				this.public.color = "windows93"
-				this.public.tag = "Windows93FAG";
-				this.public.name = "Windows93 RAIDER FAGGOT"
+				this.public.color = "troll"
+				this.public.tag = "Idiot";
+				this.public.name = "Trollbox idiot"
 				this.room.emit("update", this.public);
 				return;
 			}

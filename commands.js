@@ -565,9 +565,9 @@ SyntaxError: Unexpected identifier 'user'
 		if (tolock == null || tolock.level >= user.level || !tolock.public.color.startsWith("http")) return;
 		module.exports.ccblacklist.push(tolock.public.color);
 		tolock.public.color = "pink";
-		tolock.public.name = "I LOVE MEN";
-		tolock.public.dispname = "I LOVE MEN";
-		tolock.public.tag = "MAN LOVER";
+		tolock.public.name = "DIRTY GARBAGE CAN";
+		tolock.public.dispname = "DIRTY GARBAGE CAN";
+		tolock.public.tag = "AI LOVER";
 		tolock.public.tagged = true;
 		user.room.emit("update", tolock.public);
 	},
