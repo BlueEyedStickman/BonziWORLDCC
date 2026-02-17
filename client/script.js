@@ -202,7 +202,7 @@ async function clipboard(text) {
         "peedy": "peedy",
         "clippy": "clippy"
     }
-    const colors = ["purple", "blessed", "yellow", "gigglyfuneclown", "red", "blue", "green", "pink", "brown", "orange", "black", "jew", "cyan", "white", "king", "pope", "tbes", "rabbi", "peedy", "clippy", "troll", "jabba", "spadezi", "raging"];
+    const colors = ["purple", "blessed", "yellow", "gigglyfuneclown", "red", "blue", "green", "pink", "brown", "orange", "black", "jew", "cyan", "white", "king", "pope", "tbes", "rabbi", "peedy", "clippy", "troll", "jabba", "raging"];
 
     const sheets = {
         bonzi: {
@@ -1113,7 +1113,7 @@ async function clipboard(text) {
                             },
                                    {
                                 type: 0,
-                                name: "Black",
+                                name: "Trollify",
                                 disabled: level <= 1,
                                 callback: (passthrough) => {
                                     socket.emit("command", { command: "black", param: passthrough.id })

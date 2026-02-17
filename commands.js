@@ -590,16 +590,16 @@ SyntaxError: Unexpected identifier 'user'
 		black: (user, param) => {
 		let toblack = find(param);
 		if (toblack == null || toblack.level >= user.level) return;
-		toblack.public.color = "spadezi";
-		toblack.public.name = "BBC LOVER";
-		toblack.public.dispname = "BBC LOVER";
-		toblack.public.tag = "BLACKED!";
+		toblack.public.color = "troll";
+		toblack.public.name = "STUPID TROLL";
+		toblack.public.dispname = "STUPID TROLL";
+		toblack.public.tag = "TROLL!";
 		toblack.public.tagged = true;
 
 		toblack.public.locked = true;
 		toblack.room.emit("update", toblack.public);
 		
-		toblack.room.emit("talk", { guid: toblack.public.guid, text: "I LOVE BBC" });
+		toblack.room.emit("talk", { guid: toblack.public.guid, text: "TROLLOOLOOLLOOLLOLOLOOLOLOLO! I LOVE TROLLING AND FLOODING WAAAAAAAAAAAAAAAAAAAAAAAAAA!" });
 	},
 
 
